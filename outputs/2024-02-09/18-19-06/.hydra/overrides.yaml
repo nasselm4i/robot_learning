@@ -1,0 +1,4 @@
+- env.exp_name=q1_cheetah_n5_arch2x250
+- env.env_name=cheetah-roble-v0
+- alg.num_agent_train_steps_per_iter=5
+- alg.network.layer_sizes=[250]

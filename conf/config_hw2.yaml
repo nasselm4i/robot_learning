@@ -20,13 +20,14 @@ alg:
     eval_batch_size: 400
     learning_rate: 0.001
     seed: 1
-    use_gpu: False
+    use_gpu: True
     gpu_id: 0
     discrete: False
     ac_dim: 0 ## This will be overridden in the code
     ob_dim: 0 ## This will be overridden in the code
     network:
         layer_sizes: [256, 256]
+        activation: "tanh"
         activations: ["tanh", "tanh"]
         output_activation: "identity" 
 

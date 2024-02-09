@@ -16,6 +16,7 @@ import json
 import pickle
 import errno
 import torch
+import tensorboardX
 
 from hw1.roble.infrastructure.tabulate import tabulate
 
@@ -329,7 +330,9 @@ class Logger(object):
         for video_idx in range(len(video_frames)):
             clip = ImageSequenceClip(list(video_frames[video_idx]), fps=fps)
             clip_name = f'{name}_step_{step}_video{video_idx+1}.mp4'
-            clip.write_videofile(str(self._log_video_path / clip_name), fps=fps, verbose=False)
+            print("FPS : ", fps)
+            filename=str(self._log_video_path / clip_name)
+            clip.write_videofile(filename, fps=fps, verbose=True)
             
     def log_paths_as_videos(self, paths, step, max_videos_to_save=2, fps=10, video_title='video'):
 
@@ -356,6 +359,21 @@ class Logger(object):
 
         # Add the recorded video to the video folder only for evaluation video
         self.log_video_file(videos, video_title, step, fps=fps)
+    
+    # def log_figures(self, figure, name, step, phase):
+    #     """figure: matplotlib.pyplot figure handle"""
+    #     assert figure.shape[0] > 0, "Figure logging requires input shape [batch x figures]!"
+    #     self._summ_writer.add_figure('{}_{}'.format(name, phase), figure, step)
+
+    # def log_figure(self, figure, name, step, phase):
+    #     """figure: matplotlib.pyplot figure handle"""
+    #     self._summ_writer.add_figure('{}_{}'.format(name, phase), figure, step)
+
+    # def log_graph(self, array, name, step, phase):
+    #     """figure: matplotlib.pyplot figure handle"""
+    #     im = plot_graph(array)
+    #     self._summ_writer.add_image('{}_{}'.format(name, phase), im, step)
+
 
 
 logger = Logger()

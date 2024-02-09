@@ -14,7 +14,7 @@ import numpy as np
 class MBAgent(BaseAgent):
     import hw1.roble.util.class_util as classu
     @classu.hidden_member_initialize
-    def __init__(self, env, params):
+    def __init__(self, env, params, **kwargs):
         super(MBAgent, self).__init__()
 
         self._env = env.unwrapped
@@ -46,11 +46,15 @@ class MBAgent(BaseAgent):
             # you might find the num_data_per_env variable defined above useful
 
             # observations = # TODO(Q1)
+            observations = ob_no[i*num_data_per_ens:(i+1)*num_data_per_ens]
             # actions = # TODO(Q1)
+            actions = ac_na[i*num_data_per_ens:(i+1)*num_data_per_ens]
             # next_observations = # TODO(Q1)
+            next_observations = next_ob_no[i*num_data_per_ens:(i+1)*num_data_per_ens]
 
             # # use datapoints to update one of the dyn_models
             # model =  # TODO(Q1)
+            model = self._dyn_models[i]
             log = model.update(observations, actions, next_observations,
                                 self._data_statistics)
             loss = log['Training Loss']

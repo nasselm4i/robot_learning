@@ -117,7 +117,12 @@ class RL_Trainer(RL_Trainer):
             all_logs = self.train_agent()
 
             # if there is a model, log model predictions
+            print("####################################")
+            print("isinstance(self._agent, MBAgent)", isinstance(self._agent, MBAgent))
+            print("itr == 0 ?", itr)
+            print("####################################")
             if isinstance(self._agent, MBAgent) and itr == 0:
+                print("EXECUTING self.log_model_predictions")
                 self.log_model_predictions(itr, all_logs)
 
             # log/save
@@ -266,20 +271,27 @@ class RL_Trainer(RL_Trainer):
 
         # sample actions
         action_sequence = self._agent._actor.sample_action_sequences(num_sequences=1, horizon=10) #20 reacher
+        # print("ACTION SEQUENCE TYPE :", type(action_sequence))
+        # print("ACTION SEQUENCE SHAPE :", action_sequence.shape)
         action_sequence = action_sequence[0]
 
+        # print("ACTION SEQUENCE[0] SHAPE :", action_sequence.shape)
+        # print("ACTION SEQUENCE[0] :", action_sequence)
         # calculate and log model prediction error
-        mpe, true_states, pred_states = utils.calculate_mean_prediction_error(self._env, action_sequence, 
-                                                                              self._agent._dyn_models, self._agent._actor._data_statistics)
-        print("assert:", self._params['alg']['ob_dim'], " == " , true_states.shape[1], " == ", pred_states.shape[1])
+        mpe, true_states, pred_states = utils.calculate_mean_prediction_error(self._env, action_sequence,self._agent._dyn_models, self._agent._actor._data_statistics)
+        # print("self._params['alg']['ob_dim']", self._params['alg']['ob_dim'])
+        # print("true_states.shape[1]", true_states.shape)
+        # print("pred_states.shape[1]", pred_states.shape)
+        print("assert:", self._params['alg']['ob_dim'], " == " , true_states.shape[1], " == ", pred_states.shape)
         assert self._params['alg']['ob_dim'] == true_states.shape[1] == pred_states.shape[1]
         ob_dim = self._params['alg']['ob_dim']
         ob_dim = 2*int(ob_dim/2.0) ## skip last state for plotting when state dim is odd
 
         # plot the predictions
         self._fig.clf()
+        print(pred_states)
         for i in range(ob_dim):
-            plt.subplot(ob_dim/2, 2, i+1)
+            plt.subplot(int(ob_dim/2), 2, i+1)
             plt.plot(true_states[:,i], 'g')
             plt.plot(pred_states[:,i], 'r')
         self._fig.suptitle('MPE: ' + str(mpe))

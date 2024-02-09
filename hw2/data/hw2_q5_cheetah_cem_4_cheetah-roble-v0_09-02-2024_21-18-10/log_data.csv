@@ -1,0 +1,4 @@
+trainer/Eval_AverageReturn,trainer/Eval_StdReturn,trainer/Eval_MaxReturn,trainer/Eval_MinReturn,trainer/Eval_AverageEpLen,trainer/Train_AverageReturn,trainer/Train_StdReturn,trainer/Train_MaxReturn,trainer/Train_MinReturn,trainer/Train_AverageEpLen,trainer/Train_EnvstepsSoFar,trainer/Train_AverageRewardSoFar,trainer/Eval_AverageRewardSoFar,trainer/TimeSinceStart,trainer/Training Loss,trainer/Initial_DataCollection_AverageReturn
+201.19934,0.0,201.19934,201.19934,501.0,-2423.5024,440.22174,-1787.8011,-3312.8218,501.0,5010,0.0,0.0,119.72490763664246,0.073367916,-2423.5024
+546.2735,0.0,546.2735,546.2735,501.0,200.089,19.292532,225.14337,167.96667,501.0,10020,0.0,0.0,1199.3059740066528,0.10307649,-2423.5024
+725.26306,0.0,725.26306,725.26306,501.0,523.78723,19.38179,549.85236,485.851,501.0,15030,0.0,0.0,2284.1860859394073,0.11127448,-2423.5024

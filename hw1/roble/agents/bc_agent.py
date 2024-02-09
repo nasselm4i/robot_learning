@@ -1,6 +1,6 @@
 from hw1.roble.infrastructure.replay_buffer import ReplayBuffer
 from hw1.roble.policies.MLP_policy import MLPPolicySL
-from .base_agent import BaseAgent
+from hw1.base_agent import BaseAgent
 from IPython import embed
 import torch
 import numpy as np

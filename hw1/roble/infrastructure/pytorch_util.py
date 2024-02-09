@@ -34,11 +34,48 @@ def build_mlp(
     returns:
         MLP (nn.Module)
     """
+    if isinstance(kwargs["params"]["activations"][0], str):
+        activation = _str_to_activation[kwargs["params"]["activations"][0]]
     if isinstance(kwargs["params"]["output_activation"], str):
         output_activation = _str_to_activation[kwargs["params"]["output_activation"]]
-    # TODO: return a MLP. This should be an instance of nn.Module
+    # DONE: return a MLP. This should be an instance of nn.Module
     # Note: nn.Sequential is an instance of nn.Module.
-    raise NotImplementedError
+    # modules = []
+    # size = kwargs["params"]["layer_sizes"][0]
+    # n_layers = len(kwargs["params"]["layer_sizes"])
+    # modules.append(nn.Linear(input_size,size))
+    # modules.append(activation)
+    # for i in range(n_layers-2):
+    #     modules.append(nn.Linear(size,size))
+    #     modules.append(activation)
+    # modules.append(nn.Linear(size,output_size))
+    # modules.append(output_activation)
+    # model = nn.Sequential(*modules)
+    # return model
+    n_layers = len(kwargs["params"]["layer_sizes"])
+    size = kwargs["params"]["layer_sizes"][0]
+    layers = []
+    in_size = input_size
+    for _ in range(n_layers):
+        layers.append(nn.Linear(in_size, size))
+        layers.append(activation)
+        in_size = size
+    layers.append(nn.Linear(in_size, output_size))
+    layers.append(output_activation)
+    return nn.Sequential(*layers)
+
+    # layers = []
+    # in_size = input_size
+
+    # for _ in range(len(kwargs["params"]["layer_sizes"])):
+    #     layers.append(nn.Linear(in_size, kwargs["params"]["layer_sizes"][0]))
+    #     layers.append(activation)
+    #     in_size = kwargs["params"]["size"]
+
+    # layers.append(nn.Linear(in_size, output_size))
+    # layers.append(output_activation)
+    
+    # return nn.Sequential(*layers)
 
 device = None
 
@@ -50,7 +87,6 @@ def init_gpu(use_gpu=True, gpu_id=0):
     else:
         device = torch.device("cpu")
         print("GPU not detected. Defaulting to CPU.")
-
 
 def set_device(gpu_id):
     torch.cuda.set_device(gpu_id)
