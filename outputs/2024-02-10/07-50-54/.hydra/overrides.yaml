@@ -1,0 +1,10 @@
+- env.exp_name=q4_reacher_ensemble5
+- env.env_name=reacher-roble-v0
+- alg.ensemble_size=5
+- alg.add_sl_noise=true
+- alg.mpc_horizon=10
+- alg.num_agent_train_steps_per_iter=1000
+- alg.batch_size=800
+- alg.n_iter=15
+- logging.video_log_freq=-1
+- alg.mpc_action_sampling_strategy=random
